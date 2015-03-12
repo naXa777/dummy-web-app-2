@@ -2,18 +2,15 @@ package by.naxa.demo.controller;
 
 import by.naxa.demo.exception.StudentNotFoundException;
 import by.naxa.demo.model.Faculty;
-import by.naxa.demo.model.Rate;
+import by.naxa.demo.model.Gender;
 import by.naxa.demo.model.Student;
 import by.naxa.demo.service.FacultyService;
 import by.naxa.demo.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.Collection;
 
 /**
  * Created by phomal on 10.03.2015.
@@ -61,9 +58,7 @@ public class StudentController {
 		Iterable<Faculty> faculties = facultyService.findAll();
 		mav.addObject("faculties", faculties);
 
-		Collection<Rate> rates = student.getRates();
-		String ratesString = StringUtils.collectionToDelimitedString(rates, " ");
-		mav.addObject("rates", ratesString);
+		mav.addObject("genders", Gender.values());
 
 		return mav;
 	}
@@ -76,14 +71,15 @@ public class StudentController {
 			final RedirectAttributes redirectAttributes) throws StudentNotFoundException {
 		ModelAndView mav = new ModelAndView("redirect:/index.html");
 
-		studentService.update(student);
+		student = studentService.update(student);
+		student.updateRates(ratesString);
 
 		String msg = "Student was successfully updated";
 		redirectAttributes.addFlashAttribute("message", msg);
 		return mav;
 	}
 
-	@RequestMapping(value = "/delete/{id:.+}", method = RequestMethod.POST)
+	@RequestMapping(value = "/delete/{id:.+}", method = RequestMethod.DELETE)
 	public ModelAndView deleteStudent(
 			@PathVariable Long id,
 			final RedirectAttributes redirectAttributes) throws StudentNotFoundException {

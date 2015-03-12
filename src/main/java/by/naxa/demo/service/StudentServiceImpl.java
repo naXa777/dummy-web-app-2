@@ -67,4 +67,5 @@ public class StudentServiceImpl implements StudentService {
 	public Iterable<Student> findByFaculty(Faculty faculty) {
 		return studentRepository.findByFaculty(faculty);
 	}
+
 }

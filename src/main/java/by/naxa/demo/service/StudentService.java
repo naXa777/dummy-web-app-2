@@ -14,8 +14,8 @@ public interface StudentService {
 	 * Saves a given student. Use the returned instance for further operations as the save operation
 	 * might have changed the entity instance completely.
 	 *
-	 * @param student for saving
-	 * @return the saved student
+	 * @param student for saving.
+	 * @return the saved student.
 	 */
 	public Student create(Student student);
 
@@ -23,6 +23,7 @@ public interface StudentService {
 	 * Deletes the student with the given id.
 	 *
 	 * @param id must not be {@literal null}.
+	 * @return a detached student entity.
 	 * @throws IllegalArgumentException in case the given {@code id} is {@literal null}
 	 * @throws StudentNotFoundException in case there is no student with the given {@code id}
 	 */
@@ -31,14 +32,16 @@ public interface StudentService {
 	/**
 	 * Returns all instances of the Student type.
 	 *
-	 * @return all students
+	 * @return all students.
 	 */
 	public Iterable<Student> findAll();
 
 	/**
-	 * Updates a given student.
+	 * Updates a given student. Use the returned instance for further operations as the update operation
+	 * might have changed the entity instance completely.
 	 *
-	 * @param student for updating
+	 * @param student for updating.
+	 * @return the updated student
 	 * @throws IllegalArgumentException in case the given entity is (@literal null}
 	 * @throws StudentNotFoundException in case there is no student with the given {@code id}
 	 */
@@ -48,7 +51,7 @@ public interface StudentService {
 	 * Retrieves a student by its id.
 	 *
 	 * @param id must not be {@literal null}.
-	 * @return the student with the given id or {@literal null} if none found
+	 * @return the student with the given {@code id} or {@literal null} if none found
 	 * @throws IllegalArgumentException if {@code id} is {@literal null}
 	 */
 	public Student findById(Long id);

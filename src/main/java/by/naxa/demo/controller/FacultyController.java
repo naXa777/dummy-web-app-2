@@ -27,7 +27,7 @@ public class FacultyController {
 
 		facultyService.create(faculty);
 
-		String message = "New student " + faculty.getName() + " was successfully created.";
+		String message = "New faculty " + faculty.getName() + " was successfully created.";
 		redirectAttributes.addFlashAttribute("message", message);
 		return mav;
 	}
@@ -36,15 +36,15 @@ public class FacultyController {
 	public ModelAndView facultyListPage() {
 		ModelAndView mav = new ModelAndView("faculty-list");
 		Iterable<Faculty> faculties = facultyService.findAll();
-		mav.addObject("students", faculties);
+		mav.addObject("faculties", faculties);
 		return mav;
 	}
 
 	@RequestMapping(value = "/edit/{id:.+}", method = RequestMethod.GET)
-	public ModelAndView editStudentPage(@PathVariable Long id) {
+	public ModelAndView editFacultyPage(@PathVariable Long id) {
 		ModelAndView mav = new ModelAndView("faculty-edit");
 		Faculty faculty = (id > 0)? facultyService.findById(id) : new Faculty();
-		mav.addObject("student", faculty);
+		mav.addObject("faculty", faculty);
 		return mav;
 	}
 

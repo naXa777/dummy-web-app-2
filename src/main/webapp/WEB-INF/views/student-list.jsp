@@ -6,7 +6,8 @@
 --%>
 <jsp:useBean id="students" scope="request" type="java.lang.Iterable" />
 <%@page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c"    uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html lang="ru">
 <head>
     <title>University - All Students</title>
@@ -27,6 +28,7 @@
         </th>
     </tr>
     </thead>
+    <tbody>
     <c:if test="${empty students}">
         <tr>
             <td colspan="4" style="font-size: medium">
@@ -44,12 +46,13 @@
             </td>
             <td>${student.faculty.name}</td>
             <td>
-                <form action="${pageContext.request.contextPath}/spring/student/delete/${student.id}" method="POST">
-                    <input type="image" src="/resources/icons/delete-cross.png" alt="[delete]" title="Delete this student" />
-                </form>
+                <form:form action="${pageContext.request.contextPath}/spring/student/delete/${student.id}" method="DELETE">
+                    <input type="image" src="/resources/icons/delete-cross.png" alt="[x]" title="Delete this student" />
+                </form:form>
             </td>
         </tr>
     </c:forEach>
+    </tbody>
 </table>
 </body>
 </html>

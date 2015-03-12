@@ -9,15 +9,13 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<c:set var="newEntry" value="${faculty.id le 0}" />
 <html lang="en">
 <head>
-    <title>University - ${newEntry? 'Add' : 'Edit'} a faculty</title>
+    <title>University - Add a faculty</title>
 </head>
 <body>
-<form:form name="form1"
-      commandName="student"
-      action="${pageContext.request.contextPath}/spring/faculty/${newEntry? 'create' : 'edit/'.concat(student.id)}"
+<form:form name="form1" modelAttribute="faculty"
+      action="${pageContext.request.contextPath}/spring/faculty/create"
       method="POST" style="font-size: large">
     <div align="center">
         <br /><br />
@@ -26,7 +24,7 @@
             <form:input path="name" type="text" size="25"
                    value="${(not empty faculty.name)? faculty.name : 'Enter faculty name here' }" />
         </label><br />
-        <form:input path="id" type="hidden" value="${faculty.id}" />
+        <!--form:input path="id" type="hidden" value="${faculty.id}" /-->
         <br /><br />
         <input type="submit" value="Save" />
         <a href="${pageContext.request.contextPath}/spring/faculty/list">

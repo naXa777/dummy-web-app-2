@@ -26,4 +26,8 @@ public abstract @Data class AbstractNamedPersistable<PK extends Serializable> ex
 	@Column(name = "Name", nullable = false, unique = true)
 	private String name;
 
+	@Override
+	public String toString() {
+		return getName();
+	}
 }

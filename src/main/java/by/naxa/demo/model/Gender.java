@@ -23,5 +23,5 @@ public enum Gender {
 	 * The string representation of this element in the enumeration.
 	 */
 	@Getter
-	private final String name;
+	private final String description;
 }
