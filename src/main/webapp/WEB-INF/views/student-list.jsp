@@ -8,22 +8,23 @@
 <%@page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c"    uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<html lang="ru">
+<html lang="en">
 <head>
     <title>University - All Students</title>
+    <link href="<c:url value="/resources/css/screen.css" />" rel="stylesheet" />
 </head>
 <body>
-<table title="Students table" border="1" cellpadding="16" style="font-size: large; width: 100%">
+<table title="Students table" border="1" cellpadding="16" class="dataTable" >
     <thead>
     <tr>
         <th>
-            <img src="/resources/icons/address-book.png" />
+            <img src="<c:url value="/resources/icons/address-book.png"/>" alt="" />
         </th>
         <th>Name</th>
         <th>Faculty</th>
         <th>
-            <a href="${pageContext.request.contextPath}/spring//student/edit/0">
-                <img src="/resources/icons/add-plus.png" alt="[create]" title="Add new student" />
+            <a href="<c:url value="/student/edit/0"/>">
+                <img src="<c:url value="/resources/icons/add-plus.png"/>" alt="[+]" title="Add new student" />
             </a>
         </th>
     </tr>
@@ -33,7 +34,7 @@
         <tr>
             <td colspan="4" style="font-size: medium">
                 Nothing to display here at the moment.
-                Begin with a simple initialization - click <a href="${pageContext.request.contextPath}/init">/init</a>
+                Begin with a simple initialization - click <a href="<c:url value="faculty/init"/>">/init</a>
                 to generate Faculties table. Then you can start adding students (use the "plus" button above).
             </td>
         </tr>
@@ -42,12 +43,14 @@
         <tr>
             <td></td>
             <td>
-                <a href="${pageContext.request.contextPath}/spring/student/edit/${student.id}" title="Click to edit">${student.name}</a>
+                <a href="<c:url value="/student/edit/${student.id}"/>" title="Click to edit">${student.name}</a>
             </td>
             <td>${student.faculty.name}</td>
-            <td>
-                <form:form action="${pageContext.request.contextPath}/spring/student/delete/${student.id}" method="DELETE">
-                    <input type="image" src="/resources/icons/delete-cross.png" alt="[x]" title="Delete this student" />
+            <td align="center">
+                <c:url var="delAction" value="/student/delete/${student.id}" />
+                <form:form action="${delAction}" method="DELETE">
+                    <input type="image" src="<c:url value="/resources/icons/delete-cross.png"/>" alt="[x]"
+                           title="Delete this student" />
                 </form:form>
             </td>
         </tr>

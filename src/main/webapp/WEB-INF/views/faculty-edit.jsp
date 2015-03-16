@@ -9,25 +9,29 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
+<c:url var="formAction" value="/faculty/create" />
+
 <html lang="en">
 <head>
     <title>University - Add a faculty</title>
 </head>
 <body>
-<form:form name="form1" modelAttribute="faculty"
-      action="${pageContext.request.contextPath}/spring/faculty/create"
-      method="POST" style="font-size: large">
+<form:form
+        action="${formAction}" method="POST" modelAttribute="faculty"
+        style="font-size: large">
+    <form:hidden path="id" />
+
     <div align="center">
         <br /><br />
         <label>
             Faculty name:
             <form:input path="name" type="text" size="25"
-                   value="${(not empty faculty.name)? faculty.name : 'Enter faculty name here' }" />
+                   value="${(not empty student.name)? student.name : 'Enter faculty name here' }" />
         </label><br />
-        <!--form:input path="id" type="hidden" value="${faculty.id}" /-->
         <br /><br />
         <input type="submit" value="Save" />
-        <a href="${pageContext.request.contextPath}/spring/faculty/list">
+        <a href="<c:url value="/faculty/list"/>" >
             <input type="button" value="Cancel" />
         </a>
         <br /><br />

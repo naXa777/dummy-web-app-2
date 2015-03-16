@@ -9,6 +9,7 @@ import by.naxa.demo.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  */
 @Controller
 @RequestMapping(value = "/student")
+@SessionAttributes(types = Student.class)
 public class StudentController {
 
 	@Autowired
@@ -28,11 +30,13 @@ public class StudentController {
 	public ModelAndView createNewStudent(
 			@ModelAttribute Student student,
 			@RequestParam(value="rates", required = false) String ratesString,
-			final RedirectAttributes redirectAttributes) {
-		ModelAndView mav = new ModelAndView("redirect:/index.html");
+			final RedirectAttributes redirectAttributes,
+			final SessionStatus status) {
+		ModelAndView mav = new ModelAndView("redirect:/student/list");
 
 		studentService.create(student);
 
+		status.setComplete();
 		String message = "New student " + student.getName() + " was successfully created.";
 		redirectAttributes.addFlashAttribute("message", message);
 		return mav;
@@ -53,7 +57,7 @@ public class StudentController {
 		ModelAndView mav = new ModelAndView("student-edit");
 
 		Student student = (id > 0)? studentService.findById(id) : new Student();
-		mav.addObject("student", student);
+		mav.getModelMap().addAttribute(student);
 
 		Iterable<Faculty> faculties = facultyService.findAll();
 		mav.addObject("faculties", faculties);
@@ -68,12 +72,14 @@ public class StudentController {
 			@ModelAttribute Student student,
 			@RequestParam(value="rates", required = false) String ratesString,
 			@PathVariable Long id,
-			final RedirectAttributes redirectAttributes) throws StudentNotFoundException {
-		ModelAndView mav = new ModelAndView("redirect:/index.html");
+			final RedirectAttributes redirectAttributes,
+			final SessionStatus status) throws StudentNotFoundException {
+		ModelAndView mav = new ModelAndView("redirect:/student/list");
 
 		student = studentService.update(student);
 		student.updateRates(ratesString);
 
+		status.setComplete();
 		String msg = "Student was successfully updated";
 		redirectAttributes.addFlashAttribute("message", msg);
 		return mav;
@@ -83,7 +89,7 @@ public class StudentController {
 	public ModelAndView deleteStudent(
 			@PathVariable Long id,
 			final RedirectAttributes redirectAttributes) throws StudentNotFoundException {
-		ModelAndView mav = new ModelAndView("redirect:/index.html");
+		ModelAndView mav = new ModelAndView("student-list");
 
 		Student student = studentService.delete(id);
 

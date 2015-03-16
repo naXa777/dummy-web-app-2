@@ -18,7 +18,7 @@ public class HomeController {
 	@RequestMapping(value = {"/", "index"}, method = RequestMethod.GET)
 	public String home() {
 		log.info("Welcome home!");
-		return "redirect:/spring/student/list";
+		return "redirect:/student/list";
 	}
 
 }

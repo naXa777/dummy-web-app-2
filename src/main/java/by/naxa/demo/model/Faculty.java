@@ -37,6 +37,6 @@ public @Data class Faculty extends AbstractNamedPersistable<Long> {
 
 	@Override
 	public String toString() {
-		return "toString(): " + super.toString();
+		return super.toString();
 	}
 }

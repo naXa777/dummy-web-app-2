@@ -32,7 +32,7 @@ public @Data class Student extends AbstractNamedPersistable<Long> {
 	@Column(name = "Gender", columnDefinition = "enum('M', 'F', 'UNKNOWN')")
 	private Gender gender = Gender.UNKNOWN;
 
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(
 			name="Rates",
 			joinColumns = @JoinColumn(name = "student_id"))

@@ -5,7 +5,6 @@ import by.naxa.demo.service.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,7 +22,7 @@ public class FacultyController {
 
 	@RequestMapping(value="/create", method = RequestMethod.POST)
 	public ModelAndView createNewFaculty(@ModelAttribute Faculty faculty, final RedirectAttributes redirectAttributes) {
-		ModelAndView mav = new ModelAndView("redirect:/index.html");
+		ModelAndView mav = new ModelAndView("redirect:/faculty/list");
 
 		facultyService.create(faculty);
 
@@ -40,11 +39,10 @@ public class FacultyController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/edit/{id:.+}", method = RequestMethod.GET)
-	public ModelAndView editFacultyPage(@PathVariable Long id) {
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView editFacultyPage() {
 		ModelAndView mav = new ModelAndView("faculty-edit");
-		Faculty faculty = (id > 0)? facultyService.findById(id) : new Faculty();
-		mav.addObject("faculty", faculty);
+		mav.addObject("faculty", new Faculty());
 		return mav;
 	}
 
@@ -67,7 +65,7 @@ public class FacultyController {
 				facultyService.create(new Faculty(name));
 		}
 
-		return new ModelAndView("redirect:/list");
+		return new ModelAndView("redirect:/faculty/list");
 	}
 
 }

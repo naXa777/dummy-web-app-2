@@ -1,6 +1,9 @@
 package by.naxa.demo.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Column;
@@ -17,12 +20,11 @@ import java.io.Serializable;
 @MappedSuperclass
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor
 public abstract @Data class AbstractNamedPersistable<PK extends Serializable> extends AbstractPersistable<PK> {
 
 	private static final long serialVersionUID = 6500449905653154356L;
 
-	@NonNull
 	@Column(name = "Name", nullable = false, unique = true)
 	private String name;
 
