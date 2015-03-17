@@ -13,6 +13,8 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
+
 /**
  * Created by phomal on 10.03.2015.
  */
@@ -28,7 +30,7 @@ public class StudentController {
 
 	@RequestMapping(value="/create", method = RequestMethod.POST)
 	public ModelAndView createNewStudent(
-			@ModelAttribute Student student,
+			@ModelAttribute @Valid Student student,
 			@RequestParam(value="rates", required = false) String ratesString,
 			final RedirectAttributes redirectAttributes,
 			final SessionStatus status) {
@@ -69,15 +71,14 @@ public class StudentController {
 
 	@RequestMapping(value = "/edit/{id:.+}", method = RequestMethod.POST)
 	public ModelAndView editStudent(
-			@ModelAttribute Student student,
+			@ModelAttribute @Valid Student student,
 			@RequestParam(value="rates", required = false) String ratesString,
 			@PathVariable Long id,
 			final RedirectAttributes redirectAttributes,
 			final SessionStatus status) throws StudentNotFoundException {
 		ModelAndView mav = new ModelAndView("redirect:/student/list");
 
-		student = studentService.update(student);
-		student.updateRates(ratesString);
+		studentService.update(student);
 
 		status.setComplete();
 		String msg = "Student was successfully updated";

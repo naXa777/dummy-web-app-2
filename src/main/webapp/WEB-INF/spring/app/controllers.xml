@@ -14,11 +14,20 @@
 	<context:component-scan base-package="by.naxa.demo" />
 
 	<tx:annotation-driven />
-	<mvc:annotation-driven />
+	<mvc:annotation-driven validator="validator" />
 
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
 	<bean id="validator"
-		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+          class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+    <bean id="coverterService"
+          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean class="by.naxa.demo.conversion.RatesToString" />
+                <bean class="by.naxa.demo.conversion.StringToRates" />
+            </set>
+        </property>
+    </bean>
 
 </beans>

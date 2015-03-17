@@ -7,9 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * POJO Student.
@@ -51,18 +49,6 @@ public @Data class Student extends AbstractNamedPersistable<Long> {
 		super(name);
 		this.gender = gender;
 		this.faculty = faculty;
-	}
-
-	/**
-	 * Updates the student's rates.
-	 *
-	 * @param ratesString a string with whitespace-separated rates.
-	 */
-	public void updateRates(String ratesString) {
-		this.rates = Arrays.asList(ratesString.split(" "))
-				.stream()
-				.map(Integer::parseInt)
-				.collect(Collectors.toList());
 	}
 
 }
