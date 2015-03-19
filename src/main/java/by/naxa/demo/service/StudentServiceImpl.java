@@ -49,8 +49,8 @@ public class StudentServiceImpl implements StudentService {
 		if (updatedStudent == null)
 			throw new StudentNotFoundException(student.getId());
 
-		updatedStudent.setFaculty(student.getFaculty());
 		updatedStudent.setName(student.getName());
+		updatedStudent.setFaculty(student.getFaculty());
 		updatedStudent.setPhoto(student.getPhoto());
 		updatedStudent.setRates(student.getRates());
 		updatedStudent = studentRepository.save(updatedStudent);

@@ -3,6 +3,7 @@ package by.naxa.demo.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,6 +18,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true, exclude = {"students"})
+@ToString(callSuper = true, exclude = {"students"})
 @NamedQuery(name = "Faculty.findByTheFacultyName", query = "select f from Faculty f where f.name = ?1")
 public @Data class Faculty extends AbstractNamedPersistable<Long> {
 
@@ -27,16 +29,4 @@ public @Data class Faculty extends AbstractNamedPersistable<Long> {
 			mappedBy = "faculty")
 	private List<Student> students;
 
-	/**
-	 * Parameterized constructor.
-	 * @param name Faculty name.
-	 */
-	public Faculty(String name) {
-		super(name);
-	}
-
-	@Override
-	public String toString() {
-		return super.toString();
-	}
 }

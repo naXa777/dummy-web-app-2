@@ -22,7 +22,7 @@
         Yes, it is required for HTTP method conversion support
         (example: a POST with a DELETE (the 'real' method) as an additional parameter).
         -->
-    <!--filter>
+    <filter>
         <filter-name>httpMethodFilter</filter-name>
         <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
     </filter>
@@ -30,7 +30,7 @@
     <filter-mapping>
         <filter-name>httpMethodFilter</filter-name>
         <servlet-name>appServlet</servlet-name>
-    </filter-mapping-->
+    </filter-mapping>
 
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>

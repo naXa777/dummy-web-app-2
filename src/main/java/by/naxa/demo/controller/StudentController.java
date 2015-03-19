@@ -6,14 +6,18 @@ import by.naxa.demo.model.Gender;
 import by.naxa.demo.model.Student;
 import by.naxa.demo.service.FacultyService;
 import by.naxa.demo.service.StudentService;
+import by.naxa.demo.validation.StudentValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by phomal on 10.03.2015.
@@ -27,20 +31,48 @@ public class StudentController {
 	private StudentService studentService;
 	@Autowired
 	private FacultyService facultyService;
+	@Autowired
+	private StudentValidator validator;
+
+	/**
+	 * Without this user can set any Student fields they want with a custom HTTP POST query.
+	 */
+	@InitBinder
+	void allowFields(final WebDataBinder binder) {
+		binder.setAllowedFields("name", "photo", "rates", "faculty", "gender");
+		binder.setValidator(validator);
+	}
 
 	@RequestMapping(value="/create", method = RequestMethod.POST)
 	public ModelAndView createNewStudent(
-			@ModelAttribute @Valid Student student,
-			@RequestParam(value="rates", required = false) String ratesString,
+			@Validated @ModelAttribute Student student,
+			final BindingResult result,
+			final HttpServletRequest request,
 			final RedirectAttributes redirectAttributes,
-			final SessionStatus status) {
-		ModelAndView mav = new ModelAndView("redirect:/student/list");
+			final SessionStatus session) {
+		ModelAndView mav;
 
-		studentService.create(student);
+		if (result.hasErrors()) {
+			// incorrect
+			String referrer = request.getHeader("Referer"); // sic!
+			mav = new ModelAndView("redirect:" + referrer);
 
-		status.setComplete();
-		String message = "New student " + student.getName() + " was successfully created.";
-		redirectAttributes.addFlashAttribute("message", message);
+			mav.getModelMap().addAttribute(student);
+
+			Iterable<Faculty> faculties = facultyService.findAll();
+			mav.addObject("faculties", faculties);
+
+			mav.addObject("genders", Gender.values());
+		} else {
+			// ok
+			mav = new ModelAndView("redirect:/student/list");
+
+			student = studentService.create(student);
+
+			session.setComplete();
+			String message = "New student " + student.getName() + " was successfully created.";
+			redirectAttributes.addFlashAttribute("message", message);
+		}
 		return mav;
 	}
 
@@ -69,18 +101,23 @@ public class StudentController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/edit/{id:.+}", method = RequestMethod.POST)
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public ModelAndView editStudent(
-			@ModelAttribute @Valid Student student,
-			@RequestParam(value="rates", required = false) String ratesString,
-			@PathVariable Long id,
+			@Validated @ModelAttribute Student student,
+			final BindingResult result,
+			final HttpServletRequest request,
 			final RedirectAttributes redirectAttributes,
-			final SessionStatus status) throws StudentNotFoundException {
+			final SessionStatus session) throws StudentNotFoundException {
+		if (result.hasErrors()) {
+			String referrer = request.getHeader("Referer"); // sic!
+			return new ModelAndView("redirect:" + referrer);
+		}
+
 		ModelAndView mav = new ModelAndView("redirect:/student/list");
 
 		studentService.update(student);
 
-		status.setComplete();
+		session.setComplete();
 		String msg = "Student was successfully updated";
 		redirectAttributes.addFlashAttribute("message", msg);
 		return mav;
@@ -90,7 +127,7 @@ public class StudentController {
 	public ModelAndView deleteStudent(
 			@PathVariable Long id,
 			final RedirectAttributes redirectAttributes) throws StudentNotFoundException {
-		ModelAndView mav = new ModelAndView("student-list");
+		ModelAndView mav = new ModelAndView("redirect:/student/list");
 
 		Student student = studentService.delete(id);
 

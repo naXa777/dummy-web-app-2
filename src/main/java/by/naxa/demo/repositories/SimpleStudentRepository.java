@@ -22,7 +22,7 @@ public interface SimpleStudentRepository extends PagingAndSortingRepository<Stud
 	 * @param name Student's name.
 	 * @return The student.
 	 */
-	Student findByTheStudentsName(String name);
+	<S extends Student> S findByTheStudentsName(String name);
 
 	/**
 	 * Returns all students from the given faculty. This method will be translated into a query using
@@ -32,6 +32,6 @@ public interface SimpleStudentRepository extends PagingAndSortingRepository<Stud
 	 * @return List of students.
 	 */
 	@Query("select s from Student s where s.faculty = :faculty")
-	List<Student> findByFaculty(@Param("faculty") Faculty faculty);
+	<S extends Student> List<S> findByFaculty(@Param("faculty") Faculty faculty);
 
 }

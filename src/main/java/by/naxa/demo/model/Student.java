@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
+import java.util.Set;
 
 /**
  * POJO Student.
@@ -26,29 +26,24 @@ public @Data class Student extends AbstractNamedPersistable<Long> {
 	@Column(name = "Photo")
 	private byte[] photo;
 
-	@Enumerated
-	@Column(name = "Gender", columnDefinition = "enum('M', 'F', 'UNKNOWN')")
+	@Enumerated(EnumType.ORDINAL)
+	@Column(name = "Gender")
 	private Gender gender = Gender.UNKNOWN;
 
+	/*
+	 * There is no cascade option on an ElementCollection,
+	 * the target objects are always persisted, merged, removed with their parent.
+	 */
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(
 			name="Rates",
 			joinColumns = @JoinColumn(name = "student_id"))
-	private List<Integer> rates = new ArrayList<>();
+	private Set<Integer> rates = Collections.emptySet();
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(
 			name = "Faculty_id",
 			nullable = false)
 	private Faculty faculty;
-
-	/**
-	 * Parameterized constructor.
-	 */
-	public Student(String name, Gender gender, Faculty faculty) {
-		super(name);
-		this.gender = gender;
-		this.faculty = faculty;
-	}
 
 }

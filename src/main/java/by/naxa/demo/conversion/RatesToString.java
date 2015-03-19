@@ -1,10 +1,11 @@
 package by.naxa.demo.conversion;
 
+import net.jcip.annotations.ThreadSafe;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.convert.WritingConverter;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
+import java.util.Set;
 
 import static java.util.stream.Collectors.joining;
 
@@ -13,19 +14,19 @@ import static java.util.stream.Collectors.joining;
  *
  * Created on 17.03.2015.
  *
- * @param <S> the type of input values.
  * @author phomal
  */
+@ThreadSafe
 @Component
 @WritingConverter
-public class RatesToString<S extends Collection<Integer>> implements Converter<S, String> {
+public class RatesToString implements Converter<Set<Integer>, String> {
 
 	/**
 	 * @param source a collection of rates.
 	 * @return a string with whitespace-separated integers.
 	 */
 	@Override
-	public String convert(S source) {
+	public String convert(Set<Integer> source) {
 		return source.stream()
 				.map(Object::toString)
 				.collect(joining(" "));
