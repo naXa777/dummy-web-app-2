@@ -29,4 +29,12 @@ public @Data class Faculty extends AbstractNamedPersistable<Long> {
 			mappedBy = "faculty")
 	private List<Student> students;
 
+	/**
+	 * Parameterized constructor.
+	 * @param name Faculty name.
+	 */
+	public Faculty(String name) {
+		super(name);
+	}
+
 }

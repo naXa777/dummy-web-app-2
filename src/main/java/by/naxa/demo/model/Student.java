@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.Set;
 
 /**
  * POJO Student.
@@ -38,7 +38,7 @@ public @Data class Student extends AbstractNamedPersistable<Long> {
 	@CollectionTable(
 			name="Rates",
 			joinColumns = @JoinColumn(name = "student_id"))
-	private Set<Integer> rates = Collections.emptySet();
+	private Collection<Integer> rates = Collections.emptyList();
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(

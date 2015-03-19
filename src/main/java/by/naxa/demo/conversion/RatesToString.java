@@ -5,7 +5,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.convert.WritingConverter;
 import org.springframework.stereotype.Component;
 
-import java.util.Set;
+import java.util.Collection;
 
 import static java.util.stream.Collectors.joining;
 
@@ -19,14 +19,14 @@ import static java.util.stream.Collectors.joining;
 @ThreadSafe
 @Component
 @WritingConverter
-public class RatesToString implements Converter<Set<Integer>, String> {
+public class RatesToString implements Converter<Collection<Integer>, String> {
 
 	/**
 	 * @param source a collection of rates.
 	 * @return a string with whitespace-separated integers.
 	 */
 	@Override
-	public String convert(Set<Integer> source) {
+	public String convert(Collection<Integer> source) {
 		return source.stream()
 				.map(Object::toString)
 				.collect(joining(" "));

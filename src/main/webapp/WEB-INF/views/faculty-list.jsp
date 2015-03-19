@@ -17,12 +17,12 @@
     <thead>
     <tr>
         <th>
-            <img src="/resources/icons/address-book.png" />
+            <img src="<c:url value="/resources/icons/address-book.png"/>" />
         </th>
         <th>Name</th>
         <th>
             <a href="<c:url value="/faculty/edit"/>">
-                <img src="/resources/icons/add-plus.png" alt="[create]" title="Add new faculty" />
+                <img src="<c:url value="/resources/icons/add-plus.png"/>" alt="[create]" title="Add new faculty" />
             </a>
         </th>
     </tr>
