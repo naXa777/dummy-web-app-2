@@ -4,12 +4,10 @@
   Date: 10.03.2015
   Time: 8:29
 --%>
-<jsp:useBean id="faculties" scope="request" type="java.lang.Iterable" />
-<jsp:useBean id="genders"   scope="request" type="by.naxa.demo.model.Gender[]" />
 <%@page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c"    uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn"   uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <c:set var="newEntry" value="${student.id == null}" />
 <c:choose>
@@ -35,7 +33,7 @@
     <div align="center">
         <br/><br/>
         <form:label path="name">Student's name:</form:label>
-        <form:input path="name" size="25" required="true"/>
+        <form:input path="name" size="25" required="true" />
         <form:errors path="name" cssClass="errorMessage" />
         <br/>
         <%--
@@ -45,6 +43,14 @@
         <form:label path="gender">Gender:</form:label>
         <form:radiobuttons path="gender" items="${genders}" itemLabel="description" />
         <br/>
+        <form:label path="birthday">Birth date:</form:label>
+        <form:input path="birthday" placeholder="MM/dd/yyyy" />
+        <form:errors path="birthday" cssClass="errorMessage" />
+        <br/>
+        <form:label path="phone">Phone:</form:label>
+        <form:input path="phone" />
+        <form:errors path="phone" cssClass="errorMessage" />
+        <br/>
         <form:label path="faculty">Student's faculty:</form:label>
         <form:select path="faculty" items="${faculties}" itemValue="id">
             <form:option value="${student.faculty.id}" selected="true" />    <!-- undocumented feature -->
@@ -52,7 +58,7 @@
         <br/>
         <form:label path="rates">Student's rates:</form:label>
         <form:input path="rates" />
-        <form:errors path="rates" />
+        <form:errors path="rates" cssClass="errorMessage" />
         <br/><br/><br/>
         <input type="submit" value="Save" />
         <a href="<c:url value="/student/list"/>">

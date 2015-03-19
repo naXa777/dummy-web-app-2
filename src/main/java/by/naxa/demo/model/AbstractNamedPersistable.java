@@ -8,6 +8,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -25,6 +26,7 @@ public abstract @Data class AbstractNamedPersistable<PK extends Serializable> ex
 
 	private static final long serialVersionUID = 6500449905653154356L;
 
+	@Size(min = 2, max = 746)
 	@Column(name = "Name", nullable = false, unique = true)
 	private String name;
 

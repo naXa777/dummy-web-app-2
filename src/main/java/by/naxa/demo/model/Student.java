@@ -1,13 +1,18 @@
 package by.naxa.demo.model;
 
+import by.naxa.demo.validation.Phone;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 
 /**
  * POJO Student.
@@ -29,6 +34,13 @@ public @Data class Student extends AbstractNamedPersistable<Long> {
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "Gender")
 	private Gender gender = Gender.UNKNOWN;
+
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@NotNull @Past
+	private Date birthday;
+
+	@Phone
+	private String phone;
 
 	/*
 	 * There is no cascade option on an ElementCollection,

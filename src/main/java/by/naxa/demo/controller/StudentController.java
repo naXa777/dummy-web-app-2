@@ -56,20 +56,13 @@ public class StudentController {
 			// incorrect
 			String referrer = request.getHeader("Referer"); // sic!
 			mav = new ModelAndView("redirect:" + referrer);
-
-			mav.getModelMap().addAttribute(student);
-
-			Iterable<Faculty> faculties = facultyService.findAll();
-			mav.addObject("faculties", faculties);
-
-			mav.addObject("genders", Gender.values());
 		} else {
 			// ok
 			mav = new ModelAndView("redirect:/student/list");
 
 			student = studentService.create(student);
-
 			session.setComplete();
+
 			String message = "New student " + student.getName() + " was successfully created.";
 			redirectAttributes.addFlashAttribute("message", message);
 		}
@@ -87,7 +80,9 @@ public class StudentController {
 	}
 
 	@RequestMapping(value = "/edit/{id:.+}", method = RequestMethod.GET)
-	public ModelAndView editStudentPage(@PathVariable Long id) {
+	public ModelAndView editStudentPage(
+			@PathVariable Long id,
+	        final RedirectAttributes redirectAttributes) {
 		ModelAndView mav = new ModelAndView("student-edit");
 
 		Student student = (id > 0)? studentService.findById(id) : new Student();
@@ -97,6 +92,10 @@ public class StudentController {
 		mav.addObject("faculties", faculties);
 
 		mav.addObject("genders", Gender.values());
+
+		redirectAttributes.addFlashAttribute("student", student);
+		redirectAttributes.addFlashAttribute("faculties", faculties);
+		redirectAttributes.addFlashAttribute("genders", Gender.values());
 
 		return mav;
 	}
@@ -116,10 +115,11 @@ public class StudentController {
 		ModelAndView mav = new ModelAndView("redirect:/student/list");
 
 		studentService.update(student);
-
 		session.setComplete();
+
 		String msg = "Student was successfully updated";
 		redirectAttributes.addFlashAttribute("message", msg);
+
 		return mav;
 	}
 
@@ -133,6 +133,7 @@ public class StudentController {
 
 		String msg = "The student " + student.getName() + " was successfully deleted.";
 		redirectAttributes.addFlashAttribute("message", msg);
+
 		return mav;
 	}
 

@@ -35,6 +35,12 @@
         </property>
     </bean>
 
+    <bean id="messageSource"
+          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="i18n.messages" />
+        <property name="defaultEncoding" value="UTF-8" />
+    </bean>
+
     <!-- Imports user-defined @Controller beans that process client requests -->
 	<import resource="controllers.xml" />
 	
