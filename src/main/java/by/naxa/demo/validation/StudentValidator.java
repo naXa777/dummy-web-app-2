@@ -39,6 +39,6 @@ public class StudentValidator implements Validator {
 			else if (rate > 10)
 				errors.rejectValue(RATES, "student.rates.moreThanTen");
 
-		ValidationUtils.rejectIfEmpty(errors, NAME, "student.name.empty");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, NAME, "student.name.empty");
 	}
 }

@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Column;
@@ -26,7 +25,6 @@ public abstract @Data class AbstractNamedPersistable<PK extends Serializable> ex
 
 	private static final long serialVersionUID = 6500449905653154356L;
 
-	@NotBlank
 	@Column(name = "Name", nullable = false, unique = true)
 	private String name;
 
