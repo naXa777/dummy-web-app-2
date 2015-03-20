@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 import java.util.List;
 
 /**
- * POJO Faculty.
+ * Faculty Bean.
  * Created by phomal on 09.03.2015.
  */
 @Entity

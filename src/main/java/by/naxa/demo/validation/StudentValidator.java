@@ -3,7 +3,6 @@ package by.naxa.demo.validation;
 import by.naxa.demo.model.Student;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 /**
@@ -18,7 +17,6 @@ import org.springframework.validation.Validator;
 public class StudentValidator implements Validator {
 
 	public static final String RATES = "rates";
-	public static final String NAME = "name";
 
 	/**
 	 * Validator validates Student instances, and any subclasses of Student too.
@@ -38,7 +36,5 @@ public class StudentValidator implements Validator {
 				errors.rejectValue(RATES, "student.rates.negative");
 			else if (rate > 10)
 				errors.rejectValue(RATES, "student.rates.moreThanTen");
-
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, NAME, "student.name.empty");
 	}
 }

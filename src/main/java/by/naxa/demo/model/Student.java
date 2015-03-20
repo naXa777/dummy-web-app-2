@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.Date;
 
 /**
- * POJO Student.
+ * Student Bean.
  * Created by phomal on 09.03.2015.
  */
 @Entity
@@ -37,9 +37,11 @@ public @Data class Student extends AbstractNamedPersistable<Long> {
 
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@NotNull @Past
+	@Column(name = "Birthday")
 	private Date birthday;
 
 	@Phone
+	@Column(name = "Phone", length = 32)
 	private String phone;
 
 	/*

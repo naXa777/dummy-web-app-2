@@ -8,6 +8,8 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.convert.ReadingConverter;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 /**
  * Created by phomal on 18.03.2015.
  */
@@ -26,9 +28,11 @@ public class IdToFaculty implements Converter<String, Faculty> {
 	@Override
 	public Faculty convert(String source) throws IllegalArgumentException {
 		Long id = Long.parseLong(source);
-		Faculty result = facultyService.findById(id);
-		if (result == null)
+		Optional<Faculty> result = facultyService.findById(id);
+		if (result.isPresent())
+			return result.get();
+		else
 			throw new IllegalArgumentException(String.format("Faculty with id=%d not found.", id));
-		return result;
+
 	}
 }

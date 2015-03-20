@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Optional;
 
 /**
  * Created by phomal on 10.03.2015.
@@ -28,12 +29,12 @@ public class FacultyServiceImpl implements FacultyService {
 	}
 
 	@Override
-	public Faculty findById(Long id) {
-		return facultyRepository.findOne(id);
+	public Optional<Faculty> findById(Long id) {
+		return Optional.ofNullable(facultyRepository.findOne(id));
 	}
 
 	@Override
-	public Faculty findByName(String name) {
+	public Optional<Faculty> findByName(String name) {
 		return facultyRepository.findByTheFacultyName(name);
 	}
 

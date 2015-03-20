@@ -7,6 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Simple repository interface for {@link Student} instances. The interface is used to declare so called query methods,
@@ -22,7 +23,7 @@ public interface SimpleStudentRepository extends PagingAndSortingRepository<Stud
 	 * @param name Student's name.
 	 * @return The student.
 	 */
-	<S extends Student> S findByTheStudentsName(String name);
+	<S extends Student> Optional<S> findByTheStudentsName(String name);
 
 	/**
 	 * Returns all students from the given faculty. This method will be translated into a query using

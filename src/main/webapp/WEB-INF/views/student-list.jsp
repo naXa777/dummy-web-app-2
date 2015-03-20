@@ -6,12 +6,13 @@
 --%>
 <jsp:useBean id="students" scope="request" type="java.lang.Iterable" />
 <%@page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@taglib prefix="c"    uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html lang="en">
 <head>
     <title>University - All Students</title>
-    <link href="<c:url value="/resources/css/screen.css" />" rel="stylesheet" />
+    <link href="<c:url value="/resources/css/screen.css"/>" rel="stylesheet" />
 </head>
 <body>
 <table title="Students table" border="1" cellpadding="16" class="dataTable" >
@@ -47,7 +48,7 @@
             </td>
             <td>${student.faculty.name}</td>
             <td align="center">
-                <c:url var="delAction" value="/student/delete/${student.id}" />
+                <c:url var="delAction" value="/student/delete/${student.id}.do" />
                 <form:form action="${delAction}" method="DELETE">
                     <input type="image" src="<c:url value="/resources/icons/delete-cross.png"/>" alt="[x]"
                            title="Delete this student" />

@@ -6,11 +6,12 @@
 --%>
 <jsp:useBean id="faculty" scope="request" class="by.naxa.demo.model.Faculty" />
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-<c:url var="formAction" value="/faculty/create" />
+<c:url var="formAction" value="/faculty/create.do" />
 
 <html lang="en">
 <head>

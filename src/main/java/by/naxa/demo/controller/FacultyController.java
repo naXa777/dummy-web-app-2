@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
+ * Faculty form controller.
  * Created by phomal on 10.03.2015.
  */
 @Controller
@@ -20,9 +21,11 @@ public class FacultyController {
 	@Autowired
 	private FacultyService facultyService;
 
-	@RequestMapping(value="/create", method = RequestMethod.POST)
-	public ModelAndView createNewFaculty(@ModelAttribute Faculty faculty, final RedirectAttributes redirectAttributes) {
-		ModelAndView mav = new ModelAndView("redirect:/faculty/list");
+	@RequestMapping(value="/create.do", method = RequestMethod.POST)
+	public ModelAndView createNewFaculty(@ModelAttribute Faculty faculty,
+	                                     final RedirectAttributes redirectAttributes,
+	                                     final ModelAndView mav) {
+		mav.setViewName("redirect:/faculty/list");
 
 		facultyService.create(faculty);
 
@@ -49,7 +52,7 @@ public class FacultyController {
 	/**
 	 * Fill the Faculties table.
 	 */
-	@RequestMapping(value = "/init", method = RequestMethod.POST)
+	@RequestMapping(value = "/init.do", method = RequestMethod.POST)
 	public ModelAndView facultiesInit() {
 		if (facultyService.isEmpty()) {
 			String theLeedsFaculties[] = {

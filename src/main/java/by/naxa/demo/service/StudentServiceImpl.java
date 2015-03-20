@@ -50,6 +50,9 @@ public class StudentServiceImpl implements StudentService {
 			throw new StudentNotFoundException(student.getId());
 
 		updatedStudent.setName(student.getName());
+		updatedStudent.setGender(student.getGender());
+		updatedStudent.setBirthday(student.getBirthday());
+		updatedStudent.setPhone(student.getPhone());
 		updatedStudent.setFaculty(student.getFaculty());
 		updatedStudent.setPhoto(student.getPhoto());
 		updatedStudent.setRates(student.getRates());

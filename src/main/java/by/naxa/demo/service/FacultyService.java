@@ -2,6 +2,8 @@ package by.naxa.demo.service;
 
 import by.naxa.demo.model.Faculty;
 
+import java.util.Optional;
+
 /**
  * StudentService interface that is used in the Controller.
  * Created by phomal on 10.03.2015.
@@ -31,7 +33,7 @@ public interface FacultyService {
 	 * @return the faculty with the given {@code id} or {@literal null} if none found
 	 * @throws IllegalArgumentException if {@code id} is {@literal null}
 	 */
-	public Faculty findById(Long id);
+	public Optional<Faculty> findById(Long id);
 
 	/**
 	 * Retrieves a faculty by its name.
@@ -40,7 +42,7 @@ public interface FacultyService {
 	 * @return the faculty with the given {@code name} or {@literal null} if none found
 	 * @throws IllegalArgumentException if {@code name} is {@literal null}
 	 */
-	public Faculty findByName(String name);
+	public Optional<Faculty> findByName(String name);
 
 
 	/**

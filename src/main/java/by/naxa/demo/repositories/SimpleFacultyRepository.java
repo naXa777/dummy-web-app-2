@@ -3,6 +3,8 @@ package by.naxa.demo.repositories;
 import by.naxa.demo.model.Faculty;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import java.util.Optional;
+
 /**
  * Simple repository interface for {@link Faculty} instances. The interface is used to declare so called query methods,
  * methods to retrieve single entities or collections of them.
@@ -17,6 +19,6 @@ public interface SimpleFacultyRepository extends PagingAndSortingRepository<Facu
 	 * @param name Faculty name.
 	 * @return The faculty or {@literal null} if none found.
 	 */
-	Faculty findByTheFacultyName(String name);
+	<F extends Faculty> Optional<F> findByTheFacultyName(String name);
 
 }
