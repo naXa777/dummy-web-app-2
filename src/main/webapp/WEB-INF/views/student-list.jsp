@@ -35,7 +35,7 @@
         <tr>
             <td colspan="4" style="font-size: medium">
                 Nothing to display here at the moment.
-                Begin with a simple initialization - click <a href="<c:url value="faculty/init"/>">/init</a>
+                Begin with a simple initialization - click <a href="<c:url value="/faculty/init.do"/>">/init</a>
                 to generate Faculties table. Then you can start adding students (use the "plus" button above).
             </td>
         </tr>

@@ -52,7 +52,7 @@ public class FacultyController {
 	/**
 	 * Fill the Faculties table.
 	 */
-	@RequestMapping(value = "/init.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/init.do", method = RequestMethod.GET)
 	public ModelAndView facultiesInit() {
 		if (facultyService.isEmpty()) {
 			String theLeedsFaculties[] = {
