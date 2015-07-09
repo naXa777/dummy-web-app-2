@@ -9,6 +9,7 @@ import by.naxa.demo.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
@@ -87,6 +88,16 @@ public class StudentController {
 
 		return mav;
 	}
+
+    @RequestMapping(value = "/list?f=json", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Iterable<Student> studentList() {
+        return studentService.findAll();
+    }
+
+    @RequestMapping(value = "/{id:[0-9]+}?f=json", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Student student(@PathVariable Long id) throws StudentNotFoundException {
+        return studentService.findById(id);
+    }
 
 	@RequestMapping(value = "/edit/{id:.+}", method = RequestMethod.GET)
 	public ModelAndView editStudentPage(

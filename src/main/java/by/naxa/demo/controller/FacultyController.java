@@ -1,12 +1,12 @@
 package by.naxa.demo.controller;
 
+import by.naxa.demo.exception.FacultyNotFoundException;
 import by.naxa.demo.model.Faculty;
 import by.naxa.demo.service.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -41,6 +41,16 @@ public class FacultyController {
 		mav.addObject("faculties", faculties);
 		return mav;
 	}
+
+    @RequestMapping(value = "/list?f=json", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Iterable<Faculty> facultyList() {
+        return facultyService.findAll();
+    }
+
+    @RequestMapping(value = "/{id:[0-9]+}?f=json", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Faculty faculty(@PathVariable Long id) throws FacultyNotFoundException {
+        return facultyService.findById(id);
+    }
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView editFacultyPage() {
