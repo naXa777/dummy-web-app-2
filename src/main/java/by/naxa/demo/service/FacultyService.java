@@ -1,8 +1,7 @@
 package by.naxa.demo.service;
 
+import by.naxa.demo.exception.FacultyNotFoundException;
 import by.naxa.demo.model.Faculty;
-
-import java.util.Optional;
 
 /**
  * StudentService interface that is used in the Controller.
@@ -17,14 +16,14 @@ public interface FacultyService {
 	 * @param faculty for saving
 	 * @return the saved faculty
 	 */
-	public Faculty create(Faculty faculty);
+	Faculty create(Faculty faculty);
 
 	/**
 	 * Returns all instances of the Faculty type.
 	 *
 	 * @return all faculties
 	 */
-	public Iterable<Faculty> findAll();
+	Iterable<Faculty> findAll();
 
 	/**
 	 * Retrieves a faculty by its id.
@@ -33,7 +32,7 @@ public interface FacultyService {
 	 * @return the faculty with the given {@code id} or {@literal null} if none found
 	 * @throws IllegalArgumentException if {@code id} is {@literal null}
 	 */
-	public Optional<Faculty> findById(Long id);
+	Faculty findById(Long id) throws FacultyNotFoundException;
 
 	/**
 	 * Retrieves a faculty by its name.
@@ -42,14 +41,13 @@ public interface FacultyService {
 	 * @return the faculty with the given {@code name} or {@literal null} if none found
 	 * @throws IllegalArgumentException if {@code name} is {@literal null}
 	 */
-	public Optional<Faculty> findByName(String name);
-
+	Faculty findByName(String name) throws FacultyNotFoundException;
 
 	/**
 	 * Returns whether the faculty is empty.
 	 *
 	 * @return {@literal true} if the faculty is empty, {@literal false} otherwise.
 	 */
-	public boolean isEmpty();
+	boolean isEmpty();
 
 }

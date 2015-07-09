@@ -7,7 +7,8 @@ import org.springframework.data.convert.WritingConverter;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by phomal on 18.03.2015.
+ * Created on 18.03.2015.
+ * @author phomal
  */
 @ThreadSafe
 @Component

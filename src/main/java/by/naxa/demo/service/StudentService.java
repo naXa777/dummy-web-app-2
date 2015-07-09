@@ -17,7 +17,7 @@ public interface StudentService {
 	 * @param student for saving.
 	 * @return the saved student.
 	 */
-	public Student create(Student student);
+	Student create(Student student);
 
 	/**
 	 * Deletes the student with the given id.
@@ -27,14 +27,14 @@ public interface StudentService {
 	 * @throws IllegalArgumentException in case the given {@code id} is {@literal null}
 	 * @throws StudentNotFoundException in case there is no student with the given {@code id}
 	 */
-	public Student delete(Long id) throws StudentNotFoundException;
+	Student delete(Long id) throws StudentNotFoundException;
 
 	/**
 	 * Returns all instances of the Student type.
 	 *
 	 * @return all students.
 	 */
-	public Iterable<Student> findAll();
+	Iterable<Student> findAll();
 
 	/**
 	 * Updates a given student. Use the returned instance for further operations as the update operation
@@ -45,7 +45,7 @@ public interface StudentService {
 	 * @throws IllegalArgumentException in case the given entity is (@literal null}
 	 * @throws StudentNotFoundException in case there is no student with the given {@code id}
 	 */
-	public Student update(Student student) throws StudentNotFoundException;
+    Student update(Student student) throws StudentNotFoundException;
 
 	/**
 	 * Retrieves a student by its id.
@@ -54,7 +54,7 @@ public interface StudentService {
 	 * @return the student with the given {@code id} or {@literal null} if none found
 	 * @throws IllegalArgumentException if {@code id} is {@literal null}
 	 */
-	public Student findById(Long id);
+    Student findById(Long id) throws StudentNotFoundException;
 
 	/**
 	 * Retrieves students by their faculty.
@@ -63,6 +63,6 @@ public interface StudentService {
 	 * @return a list of students from the given faculty
 	 * @throws IllegalArgumentException if {@code faculty} is {@literal null}
 	 */
-	public Iterable<Student> findByFaculty(Faculty faculty);
+    Iterable<Student> findByFaculty(Faculty faculty);
 
 }

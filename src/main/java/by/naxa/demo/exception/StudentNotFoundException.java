@@ -1,6 +1,8 @@
 package by.naxa.demo.exception;
 
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * Thrown to indicate that a method has failed to find a student.
@@ -8,9 +10,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
  * Created on 10.03.2015.
  * @author phomal
  */
+@ResponseStatus(HttpStatus.NOT_FOUND)
 public class StudentNotFoundException extends EmptyResultDataAccessException {
-
-	private static final long serialVersionUID = -81460315521662721L;
 
 	/**
 	 * Constructs a new exception with a detail message, which contains the specified id.

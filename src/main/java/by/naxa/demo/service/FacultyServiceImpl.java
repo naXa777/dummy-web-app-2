@@ -1,5 +1,6 @@
 package by.naxa.demo.service;
 
+import by.naxa.demo.exception.FacultyNotFoundException;
 import by.naxa.demo.model.Faculty;
 import by.naxa.demo.repositories.SimpleFacultyRepository;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,8 @@ import javax.annotation.Resource;
 import java.util.Optional;
 
 /**
- * Created by phomal on 10.03.2015.
+ * Created on 10.03.2015.
+ * @author phomal
  */
 @Transactional
 @Service
@@ -29,13 +31,19 @@ public class FacultyServiceImpl implements FacultyService {
 	}
 
 	@Override
-	public Optional<Faculty> findById(Long id) {
-		return Optional.ofNullable(facultyRepository.findOne(id));
+	public Faculty findById(Long id) throws FacultyNotFoundException {
+        Faculty faculty = facultyRepository.findOne(id);
+        if (faculty == null)
+            throw new FacultyNotFoundException(id);
+		return faculty;
 	}
 
 	@Override
-	public Optional<Faculty> findByName(String name) {
-		return facultyRepository.findByTheFacultyName(name);
+	public Faculty findByName(String name) throws FacultyNotFoundException {
+        Optional<Faculty> faculty = facultyRepository.findByTheFacultyName(name);
+        if (!faculty.isPresent())
+            throw new FacultyNotFoundException(name);
+        return faculty.get();
 	}
 
 	@Override
