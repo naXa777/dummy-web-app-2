@@ -1,6 +1,7 @@
 package by.naxa.demo.model;
 
 import by.naxa.demo.validation.Phone;
+import com.google.gson.annotations.Expose;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -31,15 +32,18 @@ public @Data class Student extends AbstractNamedPersistable<Long> {
 	@Column(name = "Photo")
 	private byte[] photo;
 
+    @Expose
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "Gender")
 	private Gender gender = Gender.UNKNOWN;
 
+    @Expose
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@NotNull @Past
 	@Column(name = "Birthday")
 	private Date birthday;
 
+    @Expose
 	@Phone
 	@Column(name = "Phone", length = 32)
 	private String phone;
@@ -48,12 +52,14 @@ public @Data class Student extends AbstractNamedPersistable<Long> {
 	 * There is no cascade option on an ElementCollection,
 	 * the target objects are always persisted, merged, removed with their parent.
 	 */
+    @Expose
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(
 			name="Rates",
 			joinColumns = @JoinColumn(name = "student_id"))
 	private Collection<Integer> rates = Collections.emptyList();
 
+    @Expose
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(
 			name = "Faculty_id",
