@@ -89,12 +89,12 @@ public class StudentController {
 		return mav;
 	}
 
-    @RequestMapping(value = "/list?f=json", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/list/json", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Iterable<Student> studentList() {
         return studentService.findAll();
     }
 
-    @RequestMapping(value = "/{id:[0-9]+}?f=json", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{id:[0-9]+}/json", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Student student(@PathVariable Long id) throws StudentNotFoundException {
         return studentService.findById(id);
     }

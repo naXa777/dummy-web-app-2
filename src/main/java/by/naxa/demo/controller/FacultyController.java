@@ -42,12 +42,12 @@ public class FacultyController {
 		return mav;
 	}
 
-    @RequestMapping(value = "/list?f=json", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/list/json", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Iterable<Faculty> facultyList() {
         return facultyService.findAll();
     }
 
-    @RequestMapping(value = "/{id:[0-9]+}?f=json", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{id:[0-9]+}/json", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Faculty faculty(@PathVariable Long id) throws FacultyNotFoundException {
         return facultyService.findById(id);
     }
