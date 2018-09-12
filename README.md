@@ -1,4 +1,5 @@
 # Dummy Web app 2
+[![Codeship Status for naXa777/dummy-web-app-2](https://app.codeship.com/projects/79b2da30-98d5-0136-6617-1ad007865680/status?branch=master)](https://app.codeship.com/projects/305344)
 
 A simple web application developed in Java 8.
 
