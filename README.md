@@ -32,7 +32,11 @@ Make sure that MySQL service is running and configure connection properties in /
        mvn clean package
 
 2. Deploy spring-mvc-jpa-jdk8.war to Tomcat  
-   Just copy the war file to webapps folder and launch Tomcat via bin/catalina.bat or bin/catalina.sh
+   Just copy the war file to webapps folder and launch Tomcat via bin\catalina.bat or bin/catalina.sh
+
+       bin\catalina.bat start
+
+       bin/catalina.sh start
 
 ### Using IntelliJ IDEA
 
