@@ -32,10 +32,10 @@ public class FacultyServiceImpl implements FacultyService {
 
 	@Override
 	public Faculty findById(Long id) throws FacultyNotFoundException {
-        Faculty faculty = facultyRepository.findOne(id);
-        if (faculty == null)
+        Optional<Faculty> faculty = facultyRepository.findById(id);
+        if (!faculty.isPresent())
             throw new FacultyNotFoundException(id);
-		return faculty;
+		return faculty.get();
 	}
 
 	@Override

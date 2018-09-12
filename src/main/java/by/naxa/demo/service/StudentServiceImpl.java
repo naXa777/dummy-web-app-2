@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Optional;
 
 /**
  * Student service backed by {@link SimpleStudentRepository}.
@@ -28,13 +29,13 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	@Transactional(rollbackFor = StudentNotFoundException.class)
 	public Student delete(Long id) throws StudentNotFoundException {
-		Student deletedStudent = studentRepository.findOne(id);
-		if (deletedStudent == null)
+		Optional<Student> deletedStudent = studentRepository.findById(id);
+		if (!deletedStudent.isPresent())
 			throw new StudentNotFoundException(id);
 
-		studentRepository.delete(deletedStudent);
+		studentRepository.delete(deletedStudent.get());
 
-		return deletedStudent;
+		return deletedStudent.get();
 	}
 
 	@Override
@@ -45,10 +46,11 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	@Transactional(rollbackFor = StudentNotFoundException.class)
 	public Student update(Student student) throws StudentNotFoundException {
-		Student updatedStudent = studentRepository.findOne(student.getId());
-		if (updatedStudent == null)
+		Optional<Student> updatedStudentOpt = studentRepository.findById(student.getId());
+		if (!updatedStudentOpt.isPresent())
 			throw new StudentNotFoundException(student.getId());
 
+		final Student updatedStudent = updatedStudentOpt.get();
 		updatedStudent.setName(student.getName());
 		updatedStudent.setGender(student.getGender());
 		updatedStudent.setBirthday(student.getBirthday());
@@ -56,17 +58,16 @@ public class StudentServiceImpl implements StudentService {
 		updatedStudent.setFaculty(student.getFaculty());
 		updatedStudent.setPhoto(student.getPhoto());
 		updatedStudent.setRates(student.getRates());
-		updatedStudent = studentRepository.save(updatedStudent);
 
-		return updatedStudent;
+		return studentRepository.save(updatedStudent);
 	}
 
 	@Override
 	public Student findById(Long id) throws StudentNotFoundException {
-        Student student = studentRepository.findOne(id);
-        if (student == null)
+        Optional<Student> student = studentRepository.findById(id);
+        if (!student.isPresent())
             throw new StudentNotFoundException(id);
-		return student;
+		return student.get();
 	}
 
 	@Override
